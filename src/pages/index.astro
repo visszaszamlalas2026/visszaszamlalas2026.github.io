@@ -1,9 +1,6 @@
 ---
 import dayjs from "dayjs";
-
-const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss";
-const startDate = dayjs("2026-01-12 12:00:00", DATE_FORMAT);
-const endDate = dayjs("2026-04-12 12:00:00", DATE_FORMAT);
+import { endDate, startDate, DATE_SHORT_FORMAT } from "../consts";
 
 export const arrayToArrayOfArrays = (array: any[], chunkSize: number) => {
 	let result = [];
@@ -15,9 +12,10 @@ export const arrayToArrayOfArrays = (array: any[], chunkSize: number) => {
 
 const days = new Array(endDate.diff(startDate, "day") + 1)
 	.fill("")
-	.map((_, i) => dayjs(startDate).add(i, "day"));
+	.map((_, i) => dayjs(startDate).add(i, "day"))
+	.reverse();
 
-const weeks = arrayToArrayOfArrays(days, 7).reverse();
+const weeks = arrayToArrayOfArrays(days, 7);
 
 const colors = ["#d83423", "#eee", "#32a823"];
 ---
@@ -38,11 +36,11 @@ const colors = ["#d83423", "#eee", "#32a823"];
 				{
 					weeks.map((week, wi) => (
 						<tr>
-							{week.reverse().map((day, di) => (
+							{week.map((day, di) => (
 								<td
 									style={`background-color: ${colors[(di + wi) % colors.length]}`}
 								>
-									{day.format("MM. DD.")}
+									{day.format(DATE_SHORT_FORMAT)}
 								</td>
 							))}
 						</tr>
