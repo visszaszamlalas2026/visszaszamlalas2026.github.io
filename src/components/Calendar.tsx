@@ -26,6 +26,11 @@ export const Calendar = (props: {}) => {
 
   return <>
     <table>
+      <thead>
+        <tr>
+          {["H", "K", "Sze", "Cs", "P", "Szo", "V"].map((label) => <td>{label}</td>)}
+        </tr>
+      </thead>
       <tbody>
         {
           weeks.map((week, wi) => (
