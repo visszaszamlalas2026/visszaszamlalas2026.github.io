@@ -1,23 +1,6 @@
 ---
-import dayjs from "dayjs";
-import { endDate, startDate, DATE_SHORT_FORMAT } from "../consts";
-
-export const arrayToArrayOfArrays = (array: any[], chunkSize: number) => {
-	let result = [];
-	for (let i = 0; i < array.length; i += chunkSize) {
-		result.push(array.slice(i, i + chunkSize));
-	}
-	return result;
-};
-
-const days = new Array(endDate.diff(startDate, "day") + 1)
-	.fill("")
-	.map((_, i) => dayjs(startDate).add(i, "day"))
-	.reverse();
-
-const weeks = arrayToArrayOfArrays(days, 7);
-
-const colors = ["#d83423", "#eee", "#32a823"];
+import { Calendar } from "../components/Calendar";
+import "../styles/global.css";
 ---
 
 <html lang="en">
@@ -31,22 +14,6 @@ const colors = ["#d83423", "#eee", "#32a823"];
 	</head>
 	<body>
 		<h1>Visszaszamlalas 2026</h1>
-		<table>
-			<tbody>
-				{
-					weeks.map((week, wi) => (
-						<tr>
-							{week.map((day, di) => (
-								<td
-									style={`background-color: ${colors[(di + wi) % colors.length]}`}
-								>
-									{day.format(DATE_SHORT_FORMAT)}
-								</td>
-							))}
-						</tr>
-					))
-				}
-			</tbody>
-		</table>
+		<Calendar />
 	</body>
 </html>
