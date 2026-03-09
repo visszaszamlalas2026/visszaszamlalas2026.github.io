@@ -1,0 +1,19 @@
+---
+import dayjs from "dayjs";
+import { DATE_FORMAT, startDate, TODAY } from "../consts";
+
+export function getStaticPaths() {
+  return new Array(TODAY.diff(startDate, "day") + 1)
+    .fill("")
+    .map((_, i) => dayjs(startDate).add(i, "day"))
+    .map((day) => {
+      return {
+        params: { day: day.format(DATE_FORMAT) },
+      };
+    });
+}
+
+const { day } = Astro.params;
+---
+
+<h1>{day}</h1>
