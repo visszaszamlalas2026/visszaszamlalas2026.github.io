@@ -21,9 +21,13 @@ const dayToType = (day: Dayjs): DayButtonType => {
   }
 }
 
-export const DayButton = (props: { day: Dayjs, index: number }) => {
+export const DayButton = (props: { day: Dayjs, index: number, isOpened: boolean, doOpen: Function }) => {
 
   const thisType = dayToType(props.day);
 
-  return <span style={`background-color: ${colors[props.index % colors.length]}`}>{props.day.format(DATE_SHORT_FORMAT)} {thisType}</span>
+  return <div onClick={() => { props.doOpen(); }}>
+    <span style={`background-color: ${colors[props.index % colors.length]}`}>{props.day.format(DATE_SHORT_FORMAT)}</span>
+    {thisType == DayButtonType.Future ? "future" : (thisType == DayButtonType.TodayExists ? "TODAY" : "past")}
+    {props.isOpened ? "OPEN" : "closed"}
+  </div>
 }

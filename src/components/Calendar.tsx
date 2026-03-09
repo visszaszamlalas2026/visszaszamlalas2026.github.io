@@ -1,6 +1,6 @@
-import dayjs from "dayjs";
-import { endDate, startDate, DATE_SHORT_FORMAT } from "../consts";
-import { splitArray } from "../util";
+import dayjs, { Dayjs } from "dayjs";
+import { endDate, startDate, DATE_SHORT_FORMAT, DATE_FORMAT, TODAY } from "../consts";
+import { splitArray, useLocalStorage } from "../util";
 import { DayButton } from "./DayButton";
 
 
@@ -12,21 +12,38 @@ export const Calendar = (props: {}) => {
 
   const weeks = splitArray(days, 7);
 
-  return <table>
-    <tbody>
-      {
-        weeks.map((week, wi) => (
-          <tr>
-            {week.reverse().map((day, di) => (
-              <td
-              >
-                <DayButton index={wi * 7 + di} day={day} />
-              </td>
-            ))}
-          </tr>
-        ))
-      }
-    </tbody>
-  </table>
+  const [daysOpened, setDaysOpened] = useLocalStorage('daysOpened', []);
+
+  const isDayOpened = (day: Dayjs): boolean => {
+    return daysOpened.includes(day.format(DATE_FORMAT));
+  }
+
+  const doOpenDay = (day: Dayjs) => {
+    if (!isDayOpened(day) && !day.isAfter(TODAY, 'day')) {
+      setDaysOpened((daysOpened as string[]).concat(day.format(DATE_FORMAT)));
+    }
+  }
+
+  return <>
+    <table>
+      <tbody>
+        {
+          weeks.map((week, wi) => (
+            <tr>
+              {week.reverse().map((day, di) => (
+                <td
+                >
+                  <DayButton index={wi * 7 + di} day={day} isOpened={isDayOpened(day)} doOpen={() => { doOpenDay(day) }} />
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <button onClick={() => {
+      setDaysOpened([]);
+    }}>close all</button>
+  </>
     ;
 }
