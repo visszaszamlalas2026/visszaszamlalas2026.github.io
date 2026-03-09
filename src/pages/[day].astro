@@ -3,8 +3,8 @@ import dayjs from "dayjs";
 import { DATE_FORMAT, startDate, TODAY } from "../consts";
 
 export function getStaticPaths() {
-  return new Array(TODAY.diff(startDate, "day") + 1)
-    .fill("")
+  return new Array(TODAY.diff(startDate, "day") + 2)
+    .fill(0)
     .map((_, i) => dayjs(startDate).add(i, "day"))
     .map((day) => {
       return {
