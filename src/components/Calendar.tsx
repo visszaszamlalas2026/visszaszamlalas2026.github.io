@@ -17,7 +17,7 @@ export const Calendar = (props: {}) => {
       {
         weeks.map((week, wi) => (
           <tr>
-            {week.map((day, di) => (
+            {week.reverse().map((day, di) => (
               <td
               >
                 <DayButton index={wi * 7 + di} day={day} />
