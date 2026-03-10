@@ -43,10 +43,7 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
           weeks.map((week, wi) => (
             <tr>
               {week.reverse().map((day, di) => (
-                <td
-                >
-                  <DayButton index={wi * 7 + di} day={day} hasContent={props.hasContentFor.includes(day.format(DATE_FORMAT))} isOpened={isDayOpened(day)} doOpen={() => { doOpenDay(day) }} />
-                </td>
+                <DayButton index={wi * 7 + di} day={day} hasContent={props.hasContentFor.includes(day.format(DATE_FORMAT))} isOpened={isDayOpened(day)} doOpen={() => { doOpenDay(day) }} />
               ))}
             </tr>
           ))

@@ -16,10 +16,20 @@ const hasContentFor = (await getCollection(CONTENT_COLLECTION)).map(
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Visszaszamlalas 2026</title>
+		<title>Visszaszámlálás 2026</title>
 	</head>
 	<body>
-		<h1>Visszaszamlalas 2026</h1>
+		<img src="/bg.jpg" id="background" />
+		<h1>Visszaszámlálás 2026</h1>
+		<blockquote>Napi Fidesz-botrányunkat add meg nekünk ma...</blockquote>
 		<Calendar client:load hasContentFor={hasContentFor} />
+		<hr />
+		<p>
+			<a
+				href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"
+				>GitHub repo</a
+			>
+			<!-- ^ wtf is this auto-formatting lol -->
+		</p>
 	</body>
 </html>

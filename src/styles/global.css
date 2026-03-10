@@ -4,3 +4,49 @@ a,
 button {
   cursor: pointer;
 }
+
+a {
+  text-decoration: underline;
+}
+
+body {
+  background: #222;
+  color: #ccc;
+  text-align: center;
+  padding: 32px 0px;
+}
+
+img#background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  z-index: -99;
+  filter: blur(50px);
+  opacity: 0.3;
+  background-position: center;
+}
+
+h1 {
+  font-size: 48px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+blockquote {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+}
+
+table {
+  margin: 24px auto;
+}
+
+hr {
+  width: 60%;
+  margin: 24px auto;
+  border-width: 1px 0px 0px 0px;
+  border-color: #666;
+}

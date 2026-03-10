@@ -47,8 +47,8 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
     }
   }
 
-  return <div>
-    <span style={`background-color: ${colors[props.index % colors.length]}`}>{props.day.format(DATE_SHORT_FORMAT)}</span>
+  return <td width="100px" style={`background-color: ${colors[props.index % colors.length]};`}>
+    <span>{props.day.format(DATE_SHORT_FORMAT)}</span>
     <div>{dayButtonTypeToContent(thisType)}</div>
-  </div>
+  </td>
 }
