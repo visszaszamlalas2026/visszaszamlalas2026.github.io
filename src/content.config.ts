@@ -1,6 +1,4 @@
 import { defineCollection } from 'astro:content';
-import { glob, file } from 'astro/loaders';
-import { z } from 'astro/zod';
 import fs from "node:fs";
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from './consts';
@@ -28,20 +26,22 @@ const dayTexts = defineCollection({
       })
       .map((file) => {
 
-        // create folder and copy image there so its included in the static production build
-        try {
-          fs.mkdirSync(`${PUBLIC_DIR}/${file.name.replace(TEXT_EXT, '')}`);
-        } catch (e) {
+        // // create folder and copy image there so its included in the static production build
+        // try {
+        //   fs.mkdirSync(`${PUBLIC_DIR}/${file.name.replace(TEXT_EXT, '')}`);
+        // } catch (e) {
 
-        }
-        fs.copyFileSync(`${DATA_DIR}/${file.name.replace(TEXT_EXT, IMAGE_EXT)}`, `${PUBLIC_DIR}/${file.name.replace(TEXT_EXT, '')}/image.jpg`);
+        // }
+        // fs.copyFileSync(`${DATA_DIR}/${file.name.replace(TEXT_EXT, IMAGE_EXT)}`, `${PUBLIC_DIR}/${file.name.replace(TEXT_EXT, '')}/image.jpg`);
+
+        console.log({ adding: file.name });
 
         return {
           id: file.name.replace('.txt', ''),
-          text: fs.readFileSync(`${DATA_DIR}/${file.name}`, 'utf-8')
+          text: fs.readFileSync(`${DATA_DIR}/${file.name}`, 'ascii'),
         }
       });
-  }
+  },
 });
 
 // const dayImages = defineCollection({

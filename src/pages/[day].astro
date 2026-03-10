@@ -1,6 +1,9 @@
 ---
 import dayjs from "dayjs";
 import { DATE_FORMAT, startDate, TODAY } from "../consts";
+import { getEntry } from "astro:content";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 
 export function getStaticPaths() {
   return new Array(TODAY.diff(startDate, "day") + 2)
@@ -14,6 +17,17 @@ export function getStaticPaths() {
 }
 
 const { day } = Astro.params;
+const entry = await getEntry("dayTexts", day);
+
+const images = import.meta.glob<{ default: ImageMetadata }>("/gdrive/*.jpg");
+
+// console.log({ props: Astro.props, images, day });
+
+const thisImage = images[`/gdrive/${day}.jpg`]();
 ---
 
-<h1>{day}</h1>
+<h1>he {day}</h1>
+
+<p>lol {JSON.stringify(entry?.data.text)}</p>
+
+<Image src={thisImage} alt="" width={100} />
