@@ -15,5 +15,8 @@
     "dayjs": "^1.11.19",
     "preact": "^10.28.4",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.4.0"
   }
 }
