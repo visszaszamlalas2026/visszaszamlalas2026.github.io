@@ -1,0 +1,4 @@
+# keep this dir in the repo, so build succeeds even with no files present here,
+# but ignore everything, since its contents will be downloaded from google drive anyways
+*
+!.gitignore

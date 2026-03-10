@@ -23,4 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-data/
+# images copied to public directory when the custom content loader runs
+public/2026-*/

@@ -18,6 +18,6 @@ const texts = await getCollection("dayTexts");
 	<body>
 		<h1>Visszaszamlalas 2026</h1>
 		<Calendar client:load />
-		{texts.length}
+		{texts.map((text) => text.id)}
 	</body>
 </html>
