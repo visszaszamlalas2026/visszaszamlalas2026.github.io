@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+body {
+  background: #222;
+  color: #ccc;
+  text-align: center;
+  padding: 32px 0px;
+}
+
 a,
 button {
   cursor: pointer;
@@ -7,13 +14,6 @@ button {
 
 a {
   text-decoration: underline;
-}
-
-body {
-  background: #222;
-  color: #ccc;
-  text-align: center;
-  padding: 32px 0px;
 }
 
 img#background {
@@ -42,11 +42,79 @@ blockquote {
 
 table {
   margin: 24px auto;
+  border-collapse: unset;
+  border-spacing: 10px;
 }
+
+tbody td {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+td::-webkit-scrollbar {
+  display: none;
+}
+
+td div.today {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid yellow;
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+td span {
+  color: rgba(0, 0, 0, 0.7);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 10;
+  pointer-events: none;
+}
+
+td div.day-future,
+td div.day-missing,
+td button,
+td a {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+  border-radius: 10px;
+}
+
+td div.day-future,
+td div.day-missing {
+  padding-top: 35px;
+}
+
 
 hr {
   width: 60%;
   margin: 24px auto;
   border-width: 1px 0px 0px 0px;
   border-color: #666;
+}
+
+td div.door-left {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  background: blue;
+  z-index: 100;
 }
