@@ -4,16 +4,14 @@ import { DATE_FORMAT, startDate, TODAY } from "../consts";
 import { getEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 
-export function getStaticPaths() {
-  return new Array(TODAY.diff(startDate, "day") + 2)
-    .fill(0)
-    .map((_, i) => dayjs(startDate).add(i, "day"))
-    .map((day) => {
-      return {
-        params: { day: day.format(DATE_FORMAT) },
-      };
-    });
+export async function getStaticPaths() {
+  return (await getCollection("dayTexts")).map((entry) => ({
+    params: {
+      day: entry.id,
+    },
+  }));
 }
 
 const { day } = Astro.params;
