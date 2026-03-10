@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content';
 import fs from "node:fs";
 import dayjs from 'dayjs';
-import { CONTENT_COLLECTION, DATA_DIR, DATE_FORMAT, DATE_REGEX, IMAGE_EXT, TEXT_EXT } from './consts';
+import { CONTENT_COLLECTION, DATA_DIR, DATE_FORMAT, DATE_REGEX, IMAGE_EXT, PUBLIC_DIR, TEXT_EXT } from './consts';
 
 export const collections = {
   [CONTENT_COLLECTION]: defineCollection({
@@ -20,6 +20,15 @@ export const collections = {
           return dateFiles.map((file) => file.name).filter((fileName) => fileName.endsWith('.jpg')).includes(file.name.replace(TEXT_EXT, IMAGE_EXT))
         })
         .map((file) => {
+
+          // create folder and copy image there so its included in the static production build
+          try {
+            fs.mkdirSync(`${PUBLIC_DIR}/${file.name.replace('.txt', '')}`);
+          } catch (e) {
+            // do nothing lol
+          }
+          fs.copyFileSync(`${DATA_DIR}/${file.name.replace(TEXT_EXT, IMAGE_EXT)}`, `${PUBLIC_DIR}/${file.name.replace(TEXT_EXT, '')}/image.jpg`);
+
           return {
             id: file.name.replace('.txt', ''),
             text: fs.readFileSync(`${DATA_DIR}/${file.name}`, 'utf-8'),

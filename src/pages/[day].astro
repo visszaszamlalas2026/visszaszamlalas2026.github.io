@@ -1,8 +1,6 @@
 ---
 import { CONTENT_COLLECTION, DATA_DIR, IMAGE_EXT } from "../consts";
 import { getEntry } from "astro:content";
-import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -16,12 +14,12 @@ export async function getStaticPaths() {
 const { day } = Astro.params;
 const entry = await getEntry(CONTENT_COLLECTION, day);
 
-const images = import.meta.glob<{ default: ImageMetadata }>("/gdrive/*.jpg"); // cant even use a FUCKING VARIABLE HERE, FUCKING BULLSHIT
-const thisImage = images[`${DATA_DIR.slice(".".length)}/${day}${IMAGE_EXT}`]();
+// const images = import.meta.glob<{ default: ImageMetadata }>("/gdrive/*.jpg"); // cant even use a FUCKING VARIABLE HERE, FUCKING BULLSHIT
+// const thisImage = images[`${DATA_DIR.slice(".".length)}/${day}${IMAGE_EXT}`]();
 ---
 
 <h1>{day}</h1>
 
 <p>{JSON.stringify(entry?.data.text)}</p>
 
-<Image src={thisImage} alt="" width={100} />
+<img src={`/${day}/image.jpg`} alt="" />
