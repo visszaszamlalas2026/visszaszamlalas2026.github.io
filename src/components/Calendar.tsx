@@ -1,8 +1,9 @@
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 import { endDate, startDate, DATE_SHORT_FORMAT, DATE_FORMAT, TODAY } from "../consts";
 import { splitArray, useLocalStorage } from "../util";
 import { DayButton } from "./DayButton";
-
+import { useEffect, useState } from "preact/hooks";
 
 export const Calendar = (props: {}) => {
   const days = new Array(endDate.diff(startDate, "day") + 1)
@@ -13,9 +14,14 @@ export const Calendar = (props: {}) => {
   const weeks = splitArray(days, 7);
 
   const [daysOpened, setDaysOpened] = useLocalStorage('daysOpened', []);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  });
 
   const isDayOpened = (day: Dayjs): boolean => {
-    return daysOpened.includes(day.format(DATE_FORMAT));
+    return isClient ? daysOpened.includes(day.format(DATE_FORMAT)) : true;
   }
 
   const doOpenDay = (day: Dayjs) => {

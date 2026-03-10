@@ -1,6 +1,9 @@
 ---
+import { getCollection } from "astro:content";
 import { Calendar } from "../components/Calendar";
 import "../styles/global.css";
+
+const texts = await getCollection("dayTexts");
 ---
 
 <html lang="en">
@@ -14,6 +17,7 @@ import "../styles/global.css";
 	</head>
 	<body>
 		<h1>Visszaszamlalas 2026</h1>
-		<Calendar client:only />
+		<Calendar client:load />
+		{texts.length}
 	</body>
 </html>
