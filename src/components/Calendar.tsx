@@ -5,7 +5,8 @@ import { splitArray, useLocalStorage } from "../util";
 import { DayButton } from "./DayButton";
 import { useEffect, useState } from "preact/hooks";
 
-export const Calendar = (props: {}) => {
+export const Calendar = (props: { hasContentFor: string[] }) => {
+
   const days = new Array(endDate.diff(startDate, "day") + 1)
     .fill("")
     .map((_, i) => dayjs(startDate).add(i, "day"))
@@ -44,7 +45,7 @@ export const Calendar = (props: {}) => {
               {week.reverse().map((day, di) => (
                 <td
                 >
-                  <DayButton index={wi * 7 + di} day={day} isOpened={isDayOpened(day)} doOpen={() => { doOpenDay(day) }} />
+                  <DayButton index={wi * 7 + di} day={day} hasContent={props.hasContentFor.includes(day.format(DATE_FORMAT))} isOpened={isDayOpened(day)} doOpen={() => { doOpenDay(day) }} />
                 </td>
               ))}
             </tr>
@@ -52,9 +53,9 @@ export const Calendar = (props: {}) => {
         }
       </tbody>
     </table>
-    <button onClick={() => {
+    {isClient && <button onClick={() => {
       setDaysOpened([]);
-    }}>close all</button>
+    }}>close all</button>}
   </>
     ;
 }

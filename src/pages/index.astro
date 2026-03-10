@@ -2,8 +2,11 @@
 import { getCollection } from "astro:content";
 import { Calendar } from "../components/Calendar";
 import "../styles/global.css";
+import { CONTENT_COLLECTION } from "../consts";
 
-const texts = await getCollection("dayTexts");
+const hasContentFor = (await getCollection(CONTENT_COLLECTION)).map(
+	(entry) => entry.id,
+);
 ---
 
 <html lang="en">
@@ -17,7 +20,6 @@ const texts = await getCollection("dayTexts");
 	</head>
 	<body>
 		<h1>Visszaszamlalas 2026</h1>
-		<Calendar client:load />
-		{texts.map((text) => text.id)}
+		<Calendar client:load hasContentFor={hasContentFor} />
 	</body>
 </html>
