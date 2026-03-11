@@ -16,13 +16,26 @@ for (let line of lines) {
 
   console.log({ id, isImage, date, targetFile, downloadUrl });
 
-  await new Promise((resolve, reject) => {
-    https.get(downloadUrl, (res) => {
-      res.pipe(fs.createWriteStream(targetFile)
-        .on('finish', resolve)
-        .on('error', reject))
-        .on('finish', resolve)
-        .on('error', reject);
+  const downloadFile = async (url: string, target: string, cookie: string = '') => {
+    await new Promise(async (resolve, reject) => {
+      https.get(url, {
+        headers: {
+          Cookie: cookie
+        }
+      }, async (res) => {
+
+        console.log({ get: url, h: res.headers });
+
+        switch (res.statusCode) {
+          case 307: await downloadFile(url, res.headers.location as string, res.headers["set-cookie"] && res.headers["set-cookie"].length > 0 ? res.headers["set-cookie"].at(0) : '').then(resolve).catch(reject); break;
+          case 200: res.pipe(fs.createWriteStream(target))
+            .on('finish', resolve)
+            .on('error', reject); break;
+          default: throw new Error(res.statusCode?.toString());
+        }
+      }).on('error', reject);
     });
-  });
+  };
+
+  await downloadFile(downloadUrl, targetFile);
 }

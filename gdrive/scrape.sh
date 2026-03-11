@@ -2,4 +2,4 @@
 
 which gdown || pip install gdown
 
-gdown $GDRIVE_FOLDER --folder &> gdown_logs.txt || true
+gdown $GDRIVE_FOLDER --folder | tee gdown_logs.txt
