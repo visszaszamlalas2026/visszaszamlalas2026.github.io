@@ -42,4 +42,9 @@ jobs:
       - run: |
           npm ci
           npm run build
+          ls -hal dist/
       - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        with:
+          path: dist/
+      - uses: actions/deploy-pages@v4
