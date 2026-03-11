@@ -115,3 +115,16 @@ td.opened div.door-right {
 td.opened div.img {
   @apply opacity-100 blur-none;
 }
+
+button.close-all,
+a.goback {
+  @apply px-4 py-2 border-2 rounded-lg hover:bg-red-700 transition-all font-bold;
+}
+
+a.goback {
+  @apply block mt-8 no-underline;
+}
+
+p.footer {
+  @apply text-center py-8;
+}

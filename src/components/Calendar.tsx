@@ -67,8 +67,8 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
         }
       </tbody>
     </table>
-    {isClient && <button onClick={() => {
+    {isClient && <button className="close-all" onClick={() => {
       setDaysOpened([]);
-    }}>close all</button>}
+    }}>🙈 mindet becsuk</button>}
   </>;
 }
