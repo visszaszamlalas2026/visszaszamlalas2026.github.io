@@ -25,11 +25,18 @@ jobs:
       - run: |
           cd ./gdrive
           ./scrape.sh
+          cat gdown_logs.txt
           ls -hal
+        env:
+          GDRIVE_FOLDER: ${{ secrets.GDRIVE_FOLDER }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24.x
           cache: 'npm'
+      - run: |
+          cd ./gdrive
+          node download.ts
+          ls -hal
       - run: |
           npm ci
           npm run build
