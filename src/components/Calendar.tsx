@@ -4,8 +4,11 @@ import { endDate, startDate, DATE_SHORT_FORMAT, DATE_FORMAT, TODAY } from "../co
 import { splitArray, useLocalStorage } from "../util";
 import { DayButton } from "./DayButton";
 import { useEffect, useState } from "preact/hooks";
+import JSConfetti from "js-confetti";
 
 export const Calendar = (props: { hasContentFor: string[] }) => {
+
+  let confetti: JSConfetti;
 
   const days = new Array(endDate.diff(startDate, "day") + 1)
     .fill("")
@@ -19,6 +22,7 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
 
   useEffect(() => {
     setIsClient(true);
+    confetti = new JSConfetti();
   });
 
   const isDayOpened = (day: Dayjs): boolean => {
@@ -43,7 +47,20 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
           weeks.map((week, wi) => (
             <tr>
               {week.reverse().map((day, di) => (
-                <DayButton index={wi * 7 + di} day={day} hasContent={props.hasContentFor.includes(day.format(DATE_FORMAT))} isOpened={isDayOpened(day)} doOpen={() => { doOpenDay(day) }} />
+                <DayButton index={wi * 7 + di} day={day} hasContent={props.hasContentFor.includes(day.format(DATE_FORMAT))} isOpened={isDayOpened(day)} doOpen={(event: MouseEvent) => {
+                  doOpenDay(day);
+                  if (typeof confetti !== 'undefined') {
+                    confetti.addConfettiAtPosition({
+                      emojis: ['⭐'],
+                      emojiSize: 30,
+                      confettiNumber: 20,
+                      confettiDispatchPosition: {
+                        x: event.x,
+                        y: event.y
+                      }
+                    });
+                  }
+                }} />
               ))}
             </tr>
           ))

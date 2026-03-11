@@ -67,10 +67,10 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
   const renderAction = () => {
     switch (thisType) {
       case DayButtonType.TodayExistsClosed:
-      case DayButtonType.PastExistsClosed: return <button className="action" onClick={() => { props.doOpen() }}>OPEN</button>; break;
+      case DayButtonType.PastExistsClosed: return <button className="action" onClick={(event: MouseEvent) => { props.doOpen(event) }}></button>; break;
 
       case DayButtonType.TodayExistsOpened:
-      case DayButtonType.PastExistsOpened: return <a className="action" href={`/${props.day.format(DATE_FORMAT)}`}>DETAILS</a>; break;
+      case DayButtonType.PastExistsOpened: return <a className="action" href={`/${props.day.format(DATE_FORMAT)}`}></a>; break;
 
       default: return "";
     }
