@@ -14,16 +14,19 @@ const hasContentFor = (await getCollection(CONTENT_COLLECTION)).map(
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Visszaszámlálás 2026</title>
 	</head>
 	<body>
 		<img src="/bg.jpg" id="background" />
-		<h1>Visszaszámlálás 2026</h1>
-		<blockquote>Napi Fidesz-botrányunkat add meg nekünk ma...</blockquote>
+		<h1 class="text-5xl mt-12 mb-4 text-shadow-lg overflow-hidden">
+			Visszaszámlálás 2026
+		</h1>
+		<blockquote class="italic text-shadow-lg mb-8">
+			Napi Fidesz-botrányunkat add meg nekünk ma...
+		</blockquote>
 		<Calendar client:load hasContentFor={hasContentFor} />
-		<hr />
 		<p>
 			<a
 				href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"

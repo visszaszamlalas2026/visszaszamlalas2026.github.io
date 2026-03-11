@@ -1,7 +1,8 @@
 ---
-import { CONTENT_COLLECTION, DATA_DIR, IMAGE_EXT } from "../consts";
-import { getEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { CONTENT_COLLECTION, DATE_FORMAT, endDate, startDate } from "../consts";
+import { getEntry, getCollection } from "astro:content";
+import "../styles/global.css";
+import dayjs from "dayjs";
 
 export async function getStaticPaths() {
   return (await getCollection(CONTENT_COLLECTION)).map((entry) => ({
@@ -14,12 +15,50 @@ export async function getStaticPaths() {
 const { day } = Astro.params;
 const entry = await getEntry(CONTENT_COLLECTION, day);
 
-// const images = import.meta.glob<{ default: ImageMetadata }>("/gdrive/*.jpg"); // cant even use a FUCKING VARIABLE HERE, FUCKING BULLSHIT
-// const thisImage = images[`${DATA_DIR.slice(".".length)}/${day}${IMAGE_EXT}`]();
+const daysLeft = endDate.diff(dayjs(day, DATE_FORMAT), "day");
+const caseCount = endDate.diff(startDate, "day") - daysLeft;
 ---
 
-<h1>{day}</h1>
-
-<p>{JSON.stringify(entry?.data.text)}</p>
-
-<img src={`/${day}/image.jpg`} alt="" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Visszaszámlálás 2026</title>
+  </head>
+  <body>
+    <img src="/bg.jpg" id="background" />
+    <div class="mx-auto w-full md:w-2xl px-4 my-4">
+      <a href="/">
+        <h3 class="text-left">&laquo; Visszaszámlálás 2026</h3>
+      </a>
+      <h2 class="text-left">
+        {daysLeft} nap a választásokig, {caseCount}. ügy
+      </h2>
+      <h1 class="text-5xl my-8">{entry?.data.title}</h1>
+      <img
+        src={`/${day}/image.jpg`}
+        alt={entry?.data.title}
+        class="rounded-md"
+      />
+      {
+        entry?.data.content
+          .split("\r\n")
+          .filter((p: string) => p.length > 0)
+          .map((p: string) => <p>{p}</p>)
+      }
+      <a href="/">
+        <h3 class="text-left">&laquo; Vissza a naptárhoz</h3>
+      </a>
+    </div>
+    <p>
+      <a
+        href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"
+        >GitHub repo</a
+      >
+      <!-- ^ wtf is this auto-formatting lol -->
+    </p>
+  </body>
+</html>
