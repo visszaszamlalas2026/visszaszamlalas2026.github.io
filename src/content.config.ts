@@ -7,33 +7,40 @@ export const collections = {
   [CONTENT_COLLECTION]: defineCollection({
     loader: async () => {
 
-      const dateFileRegexp = new RegExp(`^${DATE_REGEX}\\..*`);
-      const dateFiles = fs.readdirSync(DATA_DIR, { withFileTypes: true }).filter((file) => dateFileRegexp.test(file.name));
+      const dateImageFileRegexp = new RegExp(`^${DATE_REGEX}\\${IMAGE_EXT}*`);
+      const dateImageFiles = fs.readdirSync(DATA_DIR, { withFileTypes: true })
+        .filter((file) => dateImageFileRegexp.test(file.name))
+        .map((file) => file.name)
+        .map((fileName) => fileName.replace(IMAGE_EXT, ''));
 
-      return dateFiles.filter((file) => file.name.endsWith(TEXT_EXT))
-        .filter((file) => {
-          // date not in future, to not leak content haha
-          return !dayjs(file.name.replace(TEXT_EXT, ''), DATE_FORMAT).isAfter(dayjs(), 'day');
-        })
-        .filter((file) => {
-          // has a corresponding image file
-          return dateFiles.map((file) => file.name).filter((fileName) => fileName.endsWith('.jpg')).includes(file.name.replace(TEXT_EXT, IMAGE_EXT))
-        })
-        .map((file) => {
+      const dateTextFileRegexp = new RegExp(`^${DATE_REGEX}.*\\${TEXT_EXT}*`);
+      const dateTextFiles = fs.readdirSync(DATA_DIR, { withFileTypes: true })
+        .filter((file) => dateTextFileRegexp.test(file.name))
+        .map((file) => ({
+          date: file.name.replace(TEXT_EXT, '').split(' ')[0],
+          title: file.name.replace(TEXT_EXT, '').split(' ').slice(1).join(' ')
+        }));
 
-          // create folder and copy image there so its included in the static production build
-          try {
-            fs.mkdirSync(`${PUBLIC_DIR}/${file.name.replace('.txt', '')}`);
-          } catch (e) {
-            // do nothing lol
-          }
-          fs.copyFileSync(`${DATA_DIR}/${file.name.replace(TEXT_EXT, IMAGE_EXT)}`, `${PUBLIC_DIR}/${file.name.replace(TEXT_EXT, '')}/image.jpg`);
+      return dateTextFiles.filter((dateTextFiles) =>
+        !dayjs(dateTextFiles.date, DATE_FORMAT).isAfter(dayjs(), 'day')
+      ).filter((dateTextFile) =>
+        dateImageFiles.includes(dateTextFile.date)
+      ).map((dateTextFile) => {
 
-          return {
-            id: file.name.replace('.txt', ''),
-            text: fs.readFileSync(`${DATA_DIR}/${file.name}`, 'utf-8'),
-          }
-        });
+        // create folder and copy image there so its included in the static production build
+        try {
+          fs.mkdirSync(`${PUBLIC_DIR}/${dateTextFile.date}`);
+        } catch (e) {
+          // do nothing lol
+        }
+        fs.copyFileSync(`${DATA_DIR}/${dateTextFile.date}${IMAGE_EXT}`, `${PUBLIC_DIR}/${dateTextFile.date}/image.jpg`);
+
+        return {
+          id: dateTextFile.date,
+          title: dateTextFile.title,
+          content: fs.readFileSync(`${DATA_DIR}/${dateTextFile.date} ${dateTextFile.title}${TEXT_EXT}`, 'utf-8'),
+        };
+      });
     },
   })
 };
