@@ -1,120 +1,117 @@
 @import "tailwindcss";
 
 body {
-  background: #222;
-  color: #ccc;
-  text-align: center;
-  padding: 32px 0px;
+  @apply text-neutral-300 bg-neutral-800 text-center font-serif select-none overflow-hidden overflow-y-scroll;
+}
+
+p {
+  @apply text-left my-2;
+}
+
+img#background {
+  @apply fixed z-[-10] w-screen h-screen blur-3xl opacity-30;
 }
 
 a,
 button {
-  cursor: pointer;
+  @apply cursor-pointer;
 }
 
 a {
-  text-decoration: underline;
-}
-
-img#background {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  height: auto;
-  z-index: -99;
-  filter: blur(50px);
-  opacity: 0.3;
-  background-position: center;
-}
-
-h1 {
-  font-size: 48px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-blockquote {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-style: italic;
+  @apply underline;
 }
 
 table {
-  margin: 24px auto;
-  border-collapse: unset;
-  border-spacing: 10px;
+  @apply mx-auto table-fixed border-separate border-spacing-[4px] md:border-spacing-[8px] w-full md:w-auto;
 }
 
-tbody td {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  overflow: visible;
+table td {
+  @apply w-1/7 md:w-[80px] lg:w-[110px] relative;
+}
+
+table tbody td {
+  @apply h-[80px] lg:h-[110px] rounded-md relative overflow-visible transition-all;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-td::-webkit-scrollbar {
+table tbody td::-webkit-scrollbar {
   display: none;
 }
 
-td div.today {
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 2px solid yellow;
-  border-radius: 14px;
-  pointer-events: none;
-  z-index: -1;
+td.missing {
+  @apply cursor-not-allowed;
 }
 
-td span {
-  color: rgba(0, 0, 0, 0.7);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-weight: bold;
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 10;
-  pointer-events: none;
+td.future {
+  @apply cursor-wait opacity-50;
+  filter: brightness(50%) grayscale(50%) blur(2px);
 }
 
-td div.day-future,
-td div.day-missing,
-td button,
-td a {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  z-index: 1;
-  border-radius: 10px;
+td.closed {
+  @apply brightness-80;
 }
 
-td div.day-future,
-td div.day-missing {
-  padding-top: 35px;
+td.opened {
+  @apply brightness-100;
 }
 
-
-hr {
-  width: 60%;
-  margin: 24px auto;
-  border-width: 1px 0px 0px 0px;
-  border-color: #666;
+div.today {
+  @apply absolute -top-1 -bottom-1 -left-1 -right-1 rounded-lg border-2 border-yellow-400 z-[-1] pointer-events-none;
 }
 
-td div.door-left {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 20px;
-  height: 20px;
-  background: blue;
-  z-index: 100;
+table tbody td span {
+  @apply absolute text-neutral-900 font-bold text-nowrap bottom-0 left-[50%] translate-x-[-50%];
+}
+
+td div.img {
+  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] blur-[1px];
+}
+
+button.action,
+a.action {
+  @apply absolute top-0 left-0 right-0 bottom-0 opacity-0;
+}
+
+td.cell-red,
+td.cell-red div.door-left,
+td.cell-red div.door-right {
+  @apply bg-red-700;
+}
+
+td.cell-green,
+td.cell-green div.door-left,
+td.cell-green div.door-right {
+  @apply bg-lime-600;
+}
+
+td.cell-white,
+td.cell-white div.door-left,
+td.cell-white div.door-right {
+  @apply bg-neutral-200;
+}
+
+div.door-left,
+div.door-right {
+  @apply absolute top-2 bottom-7 transition-all duration-[1s] rounded-md;
+}
+
+div.door-left {
+  @apply left-0 right-[50%] mr-[2px];
+}
+
+td.opened div.door-left {
+  @apply left-0 right-[100%];
+}
+
+div.door-right {
+  @apply left-[50%] right-0 ml-[2px];
+}
+
+td.opened div.door-right {
+  @apply left-[100%] right-0;
+}
+
+td.opened div.img {
+  @apply opacity-100 blur-none;
 }

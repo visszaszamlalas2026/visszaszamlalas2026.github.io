@@ -53,6 +53,5 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
     {isClient && <button onClick={() => {
       setDaysOpened([]);
     }}>close all</button>}
-  </>
-    ;
+  </>;
 }

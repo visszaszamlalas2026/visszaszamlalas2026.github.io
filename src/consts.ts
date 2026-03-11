@@ -10,7 +10,7 @@ export const IMAGE_EXT = '.jpg';
 export const DATE_REGEX = '\\d{4}-\\d{2}-\\d{2}';
 
 export const DATE_FORMAT = "YYYY-MM-DD";
-export const DATE_SHORT_FORMAT = "MM. DD.";
+export const DATE_SHORT_FORMAT = "M. DD.";
 export const startDate = dayjs("2026-01-12", DATE_FORMAT);
 export const endDate = dayjs("2026-04-12", DATE_FORMAT);
 export const TODAY = dayjs();
