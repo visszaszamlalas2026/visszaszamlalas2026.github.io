@@ -5,10 +5,12 @@ import { splitArray, useLocalStorage } from "../util";
 import { DayButton } from "./DayButton";
 import { useEffect, useState } from "preact/hooks";
 import JSConfetti from "js-confetti";
+import { useWebHaptics } from "web-haptics/react";
 
 export const Calendar = (props: { hasContentFor: string[] }) => {
 
   let confetti: JSConfetti;
+  const { trigger: haptics } = useWebHaptics();
 
   const days = new Array(endDate.diff(startDate, "day") + 1)
     .fill("")
@@ -32,6 +34,10 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
   const doOpenDay = (day: Dayjs) => {
     if (!isDayOpened(day) && !day.isAfter(TODAY, 'day')) {
       setDaysOpened((daysOpened as string[]).concat(day.format(DATE_FORMAT)));
+      haptics([{
+        duration: 60,
+        intensity: 1,
+      }]);
     }
   }
 
