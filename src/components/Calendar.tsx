@@ -52,8 +52,8 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
                   if (typeof confetti !== 'undefined') {
                     confetti.addConfettiAtPosition({
                       emojis: ['⭐'],
-                      emojiSize: 30,
-                      confettiNumber: 20,
+                      emojiSize: 50,
+                      confettiNumber: 30,
                       confettiDispatchPosition: {
                         x: event.x,
                         y: event.y
