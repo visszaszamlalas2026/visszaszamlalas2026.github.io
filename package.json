@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "postinstall": "patch-package",
+    "cacheclear": "rm -rf dist/ .astro/ node_modules/.vite/"
   },
   "dependencies": {
     "@astrojs/preact": "^5.0.0",
@@ -14,6 +16,7 @@
     "astro": "^6.0.1",
     "dayjs": "^1.11.19",
     "js-confetti": "^0.13.1",
+    "patch-package": "^8.0.1",
     "preact": "^10.28.4",
     "tailwindcss": "^4.2.1"
   },
