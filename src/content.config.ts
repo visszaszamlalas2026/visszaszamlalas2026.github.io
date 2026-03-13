@@ -18,7 +18,7 @@ export const collections = {
         .filter((file) => dateTextFileRegexp.test(file.name))
         .map((file) => ({
           date: file.name.replace(TEXT_EXT, '').split(' ')[0],
-          title: file.name.replace(TEXT_EXT, '').split(' ').slice(1).join(' ')
+          fileName: file.name,
         }));
 
       return dateTextFiles.filter((dateTextFiles) =>
@@ -35,10 +35,13 @@ export const collections = {
         }
         fs.copyFileSync(`${DATA_DIR}/${dateTextFile.date}${IMAGE_EXT}`, `${PUBLIC_DIR}/${dateTextFile.date}/image.jpg`);
 
+        const fileContents = fs.readFileSync(`${DATA_DIR}/${dateTextFile.fileName}`, 'utf-8').split('\r\n')
+        .filter((line) => line !== '');
+
         return {
           id: dateTextFile.date,
-          title: dateTextFile.title,
-          content: fs.readFileSync(`${DATA_DIR}/${dateTextFile.date} ${dateTextFile.title}${TEXT_EXT}`, 'utf-8'),
+          title: fileContents[0] as string, // first line is title
+          content: fileContents.slice(1) // rest is content
         };
       });
     },

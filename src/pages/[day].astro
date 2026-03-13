@@ -44,12 +44,7 @@ const caseCount = endDate.diff(startDate, "day") - daysLeft;
         class="rounded-md"
       />
       <div class="content">
-        {
-          entry?.data.content
-            .split("\r\n")
-            .filter((p: string) => p.length > 0)
-            .map((p: string) => <p>{p}</p>)
-        }
+        {entry?.data.content.map((p: string) => <p>{p}</p>)}
       </div>
       <a href="/" class="goback"> &laquo; Vissza a naptárhoz </a>
     </div>
