@@ -1,7 +1,7 @@
 import type { Dayjs } from "dayjs";
 import { DATE_FORMAT, DATE_SHORT_FORMAT, TODAY } from "../consts";
 
-const colors = ["cell-red", "cell-green", "cell-white"];
+const colors = ["cell-red", "cell-white", "cell-green"];
 
 enum DayButtonType {
   Future,
