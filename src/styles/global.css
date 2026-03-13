@@ -129,6 +129,10 @@ a.goback {
   @apply px-4 py-2 border-2 rounded-lg hover:bg-red-700 transition-all font-bold;
 }
 
+div.content p {
+  @apply font-sans;
+}
+
 a.goback {
   @apply block mt-8 no-underline;
 }
