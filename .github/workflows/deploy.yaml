@@ -27,7 +27,9 @@ jobs:
         with:
           rclone_config: ${{ secrets.RCLONE_CONFIG }}
       - run: |
-          rclone copy gdrive: ./gdrive/ --drive-export-formats txt
+          rclone copy gdrive: ./gdrive/ --drive-export-formats txt,jpg
+          for png in ./*.png ; do mv -- "$png" "${png%.png}.jpg" ; done || true
+          for jpeg in ./*.jpeg ; do mv -- "$jpeg" "${jpeg%.jpeg}.jpg" ; done || true
           ls -hal ./gdrive/
       - uses: actions/setup-node@v4
         with:
