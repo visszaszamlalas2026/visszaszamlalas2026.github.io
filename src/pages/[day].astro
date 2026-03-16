@@ -24,6 +24,9 @@ const thisDayImage = allDayImages[`/gdrive/${day}.jpg`];
 
 const daysLeft = endDate.diff(dayjs(day, DATE_FORMAT), "day");
 const caseCount = endDate.diff(startDate, "day") - daysLeft;
+
+const deployedAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
+const commitId = process.env.GITHUB_SHA ?? "???";
 ---
 
 <html lang="en">
@@ -58,13 +61,21 @@ const caseCount = endDate.diff(startDate, "day") - daysLeft;
       <a href="/" class="goback"> &laquo; Vissza a naptárhoz </a>
     </div>
     <p class="footer">
-      Copyright &copy; 2026 |
+      &copy; {dayjs().format("YYYY")} |
       <a
         href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"
         >GitHub repo</a
       >
       <!-- ^ wtf is this auto-formatting lol -->
       | <a href="https://ahang.hu/">aHang</a>
+      <br />
+      A szövegeket írta: <a
+        href="https://www.facebook.com/toth.eniko.public"
+        target="_blank">Tóth Enikő</a
+      >
+      <br />
+      <br />
+      <small class="font-mono">{commitId.substring(0, 8)} @ {deployedAt}</small>
     </p>
   </body>
 </html>

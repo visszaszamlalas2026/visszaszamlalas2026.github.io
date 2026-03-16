@@ -31,7 +31,7 @@ const commitId = process.env.GITHUB_SHA ?? "???";
     </blockquote>
     <Calendar client:load hasContentFor={hasContentFor} />
     <p class="footer">
-      Copyright &copy; 2026 |
+      &copy; {dayjs().format("YYYY")} |
       <a
         href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"
         >GitHub repo</a
@@ -39,7 +39,13 @@ const commitId = process.env.GITHUB_SHA ?? "???";
       <!-- ^ wtf is this auto-formatting lol -->
       | <a href="https://ahang.hu/">aHang</a>
       <br />
-      <small class="font-mono">{commitId} @ {deployedAt}</small>
+      A szövegeket írta: <a
+        href="https://www.facebook.com/toth.eniko.public"
+        target="_blank">Tóth Enikő</a
+      >
+      <br />
+      <br />
+      <small class="font-mono">{commitId.substring(0, 8)} @ {deployedAt}</small>
     </p>
   </body>
 </html>
