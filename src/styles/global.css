@@ -87,7 +87,7 @@ table tbody td span {
 }
 
 td div.img {
-  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] blur-[1px];
+  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] blur-[1px] bg-center;
 }
 
 button.action,
