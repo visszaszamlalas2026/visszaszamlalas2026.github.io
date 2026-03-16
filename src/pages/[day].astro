@@ -36,7 +36,29 @@ const commitId = process.env.GITHUB_SHA ?? "???";
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <title>Visszaszámlálás 2026</title>
+    <title>{entry?.data.title} - Visszaszámlálás 2026</title>
+    <meta
+      property="og:title"
+      content={`${entry?.data.title} - Visszaszámlálás 2026`}
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content={`https://visszaszamlalas2026.github.io/${day}`}
+    />
+    <meta
+      property="og:image"
+      content={`https://visszaszamlalas2026.github.io/${day}/image.jpg`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content={`https://visszaszamlalas2026.github.io/${day}/image.jpg`}
+    />
+    <meta
+      property="og:description"
+      content={`${daysLeft} nap a választásokig, ${caseCount}. ügy`}
+    />
   </head>
   <body>
     <img src="/bg.jpg" id="background" />
