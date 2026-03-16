@@ -2,3 +2,4 @@
 # but ignore everything, since its contents will be downloaded from google drive anyways
 *
 !.gitignore
+!download_and_convert.sh
