@@ -50,6 +50,7 @@ const caseCount = endDate.diff(startDate, "day") - daysLeft;
         src={thisDayImage()}
         alt={entry?.data.title}
         width="700"
+        style={`background: url(/${day}/thumb.jpg); background-size: cover`}
       />
       <div class="content">
         {entry?.data.content.map((p: string) => <p>{p}</p>)}

@@ -27,6 +27,7 @@ jobs:
         with:
           rclone_config: ${{ secrets.RCLONE_CONFIG }}
       - run: |
+          sudo apt install imagemagick
           cd ./gdrive/
           ./download_and_convert.sh
       - uses: actions/setup-node@v4

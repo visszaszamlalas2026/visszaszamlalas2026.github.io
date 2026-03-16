@@ -34,6 +34,7 @@ export const collections = {
           // do nothing lol
         }
         fs.copyFileSync(`${DATA_DIR}/${dateTextFile.date}${IMAGE_EXT}`, `${PUBLIC_DIR}/${dateTextFile.date}/image.jpg`);
+        fs.copyFileSync(`${DATA_DIR}/${dateTextFile.date}.thumb${IMAGE_EXT}`, `${PUBLIC_DIR}/${dateTextFile.date}/thumb.jpg`);
 
         const fileContents = fs.readFileSync(`${DATA_DIR}/${dateTextFile.fileName}`, 'utf-8').split('\r\n')
         .filter((line) => line !== '');

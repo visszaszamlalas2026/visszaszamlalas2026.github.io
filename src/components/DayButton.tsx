@@ -58,7 +58,7 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
 
   const renderContent = () => {
     if ([DayButtonType.PastExistsClosed, DayButtonType.PastExistsOpened, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType)) {
-      return <div className="img" style={`background-image: url(${`/${props.day.format(DATE_FORMAT)}/image.jpg`})`}></div>;
+      return <div className="img" style={`background-image: url(${`/${props.day.format(DATE_FORMAT)}/thumb.jpg`})`}></div>;
     } else if ([DayButtonType.TodayMissing, DayButtonType.PastMissing].includes(thisType)) {
       return <div className="emoji">&#x1F480;</div>;
     }
