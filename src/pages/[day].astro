@@ -3,6 +3,8 @@ import { CONTENT_COLLECTION, DATE_FORMAT, endDate, startDate } from "../consts";
 import { getEntry, getCollection } from "astro:content";
 import "../styles/global.css";
 import dayjs from "dayjs";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   return (await getCollection(CONTENT_COLLECTION)).map((entry) => ({
@@ -14,6 +16,11 @@ export async function getStaticPaths() {
 
 const { day } = Astro.params;
 const entry = await getEntry(CONTENT_COLLECTION, day);
+
+const allDayImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/gdrive/*.jpg",
+);
+const thisDayImage = allDayImages[`/gdrive/${day}.jpg`];
 
 const daysLeft = endDate.diff(dayjs(day, DATE_FORMAT), "day");
 const caseCount = endDate.diff(startDate, "day") - daysLeft;
@@ -38,10 +45,11 @@ const caseCount = endDate.diff(startDate, "day") - daysLeft;
         {daysLeft} nap a választásokig, {caseCount}. ügy
       </h2>
       <h1 class="text-5xl my-8">{entry?.data.title}</h1>
-      <img
-        src={`/${day}/image.jpg`}
+      <Image
+        class="w-full"
+        src={thisDayImage()}
         alt={entry?.data.title}
-        class="rounded-md"
+        width="700"
       />
       <div class="content">
         {entry?.data.content.map((p: string) => <p>{p}</p>)}
