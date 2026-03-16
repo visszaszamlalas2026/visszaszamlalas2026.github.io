@@ -41,8 +41,8 @@ export const collections = {
 
         return {
           id: dateTextFile.date,
-          title: fileContents[0] as string, // first line is title
-          content: fileContents.slice(1) // rest is content
+          title: (fileContents[0] as string).trim(), // first line is title
+          content: fileContents.slice(1).map((line) => line.trim()) // rest is content
         };
       });
     },
