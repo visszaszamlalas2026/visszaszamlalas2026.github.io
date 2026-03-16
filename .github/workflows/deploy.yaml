@@ -19,35 +19,26 @@ concurrency:
 
 jobs:
   deploy:
-    environment: env
+    environment: ghpages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v3
+      - uses: AnimMouse/setup-rclone@v1
         with:
-          python-version: "3.10"
+          rclone_config: ${{ secrets.RCLONE_CONFIG }}
       - run: |
-          cd ./gdrive
-          env
-          ./scrape.sh
-          cat gdown_logs.txt
-          ls -hal
-        env:
-          GDRIVE_FOLDER: ${{ secrets.GDRIVE_FOLDER }}
+          rclone copy gdrive: ./gdrive/ --drive-export-formats txt
+          ls -hal ./gdrive/
       - uses: actions/setup-node@v4
         with:
           node-version: 24.x
           cache: "npm"
       - run: |
-          cd ./gdrive
-          node download.ts
-          ls -hal
-      - run: |
           npm ci
           npm run build
-          ls -hal dist/
+          ls -hal ./dist/
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
       - uses: actions/deploy-pages@v4
