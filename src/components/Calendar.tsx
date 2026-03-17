@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import { endDate, startDate, DATE_SHORT_FORMAT, DATE_FORMAT, TODAY } from "../consts";
+import { CALENDAR_END, CALENDAR_START, DATE_FORMAT, TODAY } from "../consts";
 import { splitArray, useLocalStorage } from "../util";
 import { DayButton } from "./DayButton";
 import { useEffect, useState } from "preact/hooks";
@@ -12,14 +12,14 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
   let confetti: JSConfetti;
   const { trigger: haptics } = useWebHaptics();
 
-  const days = new Array(endDate.diff(startDate, "day") + 1)
+  const days = new Array(CALENDAR_END.diff(CALENDAR_START, "day") + 1)
     .fill("")
-    .map((_, i) => dayjs(startDate).add(i, "day"))
+    .map((_, i) => dayjs(CALENDAR_START).add(i, "day"))
     .reverse();
 
   const weeks = splitArray(days, 7);
 
-  const [daysOpened, setDaysOpened] = useLocalStorage('daysOpened', []);
+  const [daysOpened, setDaysOpened] = useLocalStorage('daysOpened', [CALENDAR_START.format(DATE_FORMAT)]);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export const Calendar = (props: { hasContentFor: string[] }) => {
       </tbody>
     </table>
     {isClient && <button className="close-all" onClick={() => {
-      setDaysOpened([]);
+      setDaysOpened([CALENDAR_START.format(DATE_FORMAT)]);
     }}>🙈 mindet becsuk</button>}
   </>;
 }

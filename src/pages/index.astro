@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import { Calendar } from "../components/Calendar";
 import "../styles/global.css";
-import { CONTENT_COLLECTION } from "../consts";
+import { CALENDAR_START, CONTENT_COLLECTION, DATE_FORMAT } from "../consts";
 import dayjs from "dayjs";
 
 const hasContentFor = (await getCollection(CONTENT_COLLECTION)).map(
@@ -45,6 +45,9 @@ const commitId = process.env.GITHUB_SHA ?? "???";
     <blockquote class="italic text-shadow-lg mb-8">
       Napi Fidesz-botrányunkat add meg nekünk ma...
     </blockquote>
+    <a class="intro" href={`${CALENDAR_START.format(DATE_FORMAT)}`}>
+      Mi ez az oldal?</a
+    >
     <Calendar client:load hasContentFor={hasContentFor} />
     <p class="footer">
       &copy; {dayjs().format("YYYY")} |

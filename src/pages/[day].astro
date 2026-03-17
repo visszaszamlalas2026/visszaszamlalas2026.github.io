@@ -1,5 +1,10 @@
 ---
-import { CONTENT_COLLECTION, DATE_FORMAT, endDate, startDate } from "../consts";
+import {
+  CALENDAR_END,
+  CALENDAR_START,
+  CONTENT_COLLECTION,
+  DATE_FORMAT,
+} from "../consts";
 import { getEntry, getCollection } from "astro:content";
 import "../styles/global.css";
 import dayjs from "dayjs";
@@ -22,11 +27,15 @@ const allDayImages = import.meta.glob<{ default: ImageMetadata }>(
 );
 const thisDayImage = allDayImages[`/gdrive/${day}.jpg`];
 
-const daysLeft = endDate.diff(dayjs(day, DATE_FORMAT), "day");
-const caseCount = endDate.diff(startDate, "day") - daysLeft;
+const daysLeft = CALENDAR_END.diff(dayjs(day, DATE_FORMAT), "day");
+const caseCount = CALENDAR_END.diff(CALENDAR_START, "day") - daysLeft;
 
 const deployedAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
 const commitId = process.env.GITHUB_SHA ?? "???";
+
+const subtitle = dayjs(day).isSame(CALENDAR_START, "day")
+  ? "2026-os választási kalendárium: minden nap egy újabb Fidesz-botrány!"
+  : `${daysLeft} nap a választásokig, ${caseCount}. ügy`;
 ---
 
 <html lang="en">
@@ -55,10 +64,7 @@ const commitId = process.env.GITHUB_SHA ?? "???";
       name="twitter:image"
       content={`https://visszaszamlalas2026.github.io/${day}/image.jpg`}
     />
-    <meta
-      property="og:description"
-      content={`${daysLeft} nap a választásokig, ${caseCount}. ügy`}
-    />
+    <meta property="og:description" content={subtitle} />
   </head>
   <body>
     <img src="/bg.jpg" id="background" />
@@ -67,7 +73,7 @@ const commitId = process.env.GITHUB_SHA ?? "???";
         <h3 class="text-left">&laquo; Visszaszámlálás 2026</h3>
       </a>
       <h2 class="text-left">
-        {daysLeft} nap a választásokig, {caseCount}. ügy
+        {subtitle}
       </h2>
       <h1 class="text-5xl my-8">{entry?.data.title}</h1>
       <Image

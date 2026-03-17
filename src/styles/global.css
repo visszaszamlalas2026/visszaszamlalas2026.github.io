@@ -44,7 +44,7 @@ a {
 }
 
 table {
-  @apply mx-auto table-fixed border-separate border-spacing-[4px] md:border-spacing-[8px] w-full md:w-auto;
+  @apply mx-auto mt-4 table-fixed border-separate border-spacing-[4px] md:border-spacing-[8px] w-full md:w-auto;
 }
 
 table td {
@@ -79,7 +79,7 @@ td.opened {
 }
 
 div.today {
-  @apply absolute -top-1 -bottom-1 -left-1 -right-1 rounded-lg border-2 border-yellow-400 z-[-1] pointer-events-none;
+  @apply absolute -top-1 -bottom-1 -left-1 -right-1 rounded-xl border-2 border-yellow-400 pointer-events-none shadow-sm shadow-yellow-400;
 }
 
 table tbody td span {
@@ -93,6 +93,10 @@ td div.img {
 button.action,
 a.action {
   @apply absolute top-0 left-0 right-0 bottom-0 opacity-0;
+}
+
+td.cell-intro {
+  @apply bg-yellow-400;
 }
 
 td.cell-red,
@@ -139,8 +143,9 @@ td.opened div.img {
 }
 
 button.close-all,
-a.goback {
-  @apply px-4 py-2 border-2 rounded-lg hover:bg-red-700 transition-all font-bold;
+a.goback,
+a.intro {
+  @apply px-4 py-2 border-2 rounded-lg hover:bg-red-700 transition-all font-bold no-underline;
 }
 
 div.content p {
@@ -148,7 +153,7 @@ div.content p {
 }
 
 a.goback {
-  @apply block mt-8 no-underline;
+  @apply block mt-8;
 }
 
 p.footer {

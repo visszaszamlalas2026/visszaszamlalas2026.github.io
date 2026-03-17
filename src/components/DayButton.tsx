@@ -1,5 +1,5 @@
 import type { Dayjs } from "dayjs";
-import { DATE_FORMAT, DATE_SHORT_FORMAT, TODAY } from "../consts";
+import { CALENDAR_START, DATE_FORMAT, DATE_SHORT_FORMAT, TODAY } from "../consts";
 
 const colors = ["cell-red", "cell-white", "cell-green"];
 
@@ -10,13 +10,16 @@ enum DayButtonType {
   TodayMissing,
   PastExistsClosed,
   PastExistsOpened,
-  PastMissing
+  PastMissing,
+  Introduction
 };
 
 export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolean, isOpened: boolean, doOpen: Function }) => {
 
   const thisType = (() => {
-    if (props.day.isBefore(TODAY, 'day')) {
+    if (props.day.isSame(CALENDAR_START, 'day')) {
+      return DayButtonType.Introduction;
+    } else if (props.day.isBefore(TODAY, 'day')) {
       if (props.hasContent) {
         return props.isOpened ? DayButtonType.PastExistsOpened : DayButtonType.PastExistsClosed;
       } else {
@@ -42,10 +45,11 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
       case DayButtonType.PastMissing: return "missing";
       case DayButtonType.PastExistsClosed: return "closed";
       case DayButtonType.PastExistsOpened: return "opened";
+      case DayButtonType.Introduction: return "opened";
     }
   })();
 
-  const colorClassname = colors[props.index % colors.length];
+  const colorClassname = thisType == DayButtonType.Introduction ? "cell-intro" : colors[props.index % colors.length];
 
   const renderDoors = () => {
     if ([DayButtonType.PastExistsClosed, DayButtonType.PastExistsOpened, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType)) {
@@ -57,7 +61,7 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
   }
 
   const renderContent = () => {
-    if ([DayButtonType.PastExistsClosed, DayButtonType.PastExistsOpened, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType)) {
+    if ([DayButtonType.PastExistsClosed, DayButtonType.PastExistsOpened, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened, DayButtonType.Introduction].includes(thisType)) {
       return <div className="img" style={`background-image: url(${`/${props.day.format(DATE_FORMAT)}/thumb.jpg`})`}></div>;
     } else if ([DayButtonType.TodayMissing, DayButtonType.PastMissing].includes(thisType)) {
       return <div className="emoji">&#x1F480;</div>;
@@ -69,6 +73,7 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
       case DayButtonType.TodayExistsClosed:
       case DayButtonType.PastExistsClosed: return <button className="action" onClick={(event: MouseEvent) => { props.doOpen(event) }}></button>; break;
 
+      case DayButtonType.Introduction:
       case DayButtonType.TodayExistsOpened:
       case DayButtonType.PastExistsOpened: return <a className="action" href={`/${props.day.format(DATE_FORMAT)}`}></a>; break;
 
