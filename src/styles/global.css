@@ -62,7 +62,7 @@ table tbody td::-webkit-scrollbar {
 }
 
 td.missing {
-  @apply cursor-not-allowed;
+  @apply cursor-wait;
 }
 
 td.future {
@@ -84,6 +84,24 @@ div.today {
 
 table tbody td span {
   @apply absolute text-neutral-800 font-bold text-nowrap bottom-0 left-[50%] translate-x-[-50%];
+}
+
+@keyframes turnOver {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+div.emoji {
+  animation: turnOver 2s ease-in-out infinite;
 }
 
 td div.img {
