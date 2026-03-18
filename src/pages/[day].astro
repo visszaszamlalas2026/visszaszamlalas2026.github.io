@@ -78,7 +78,7 @@ const subtitle = dayjs(day).isSame(CALENDAR_START, "day")
       </h2>
       <h1 class="text-5xl my-8">{entry?.data.title}</h1>
       <Image
-        class="w-full"
+        class="w-full rounded-xl"
         src={thisDayImage()}
         alt={entry?.data.title}
         width="800"
@@ -94,7 +94,7 @@ const subtitle = dayjs(day).isSame(CALENDAR_START, "day")
       <a
         href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"
         >GitHub repo</a
-      >
+      > (MIT)
       <!-- ^ wtf is this auto-formatting lol -->
       | <a href="https://ahang.hu/">aHang</a>
       <br />
