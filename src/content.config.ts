@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content';
 import fs from "node:fs";
 import dayjs from 'dayjs';
-import { CONTENT_COLLECTION, DATA_DIR, DATE_FORMAT, DATE_REGEX, IMAGE_EXT, PUBLIC_DIR, TEXT_EXT } from './consts';
+import { CONTENT_COLLECTION, DATA_DIR, DATE_FORMAT, DATE_REGEX, IMAGE_EXT, PUBLIC_DIR, TEXT_EXT, TODAY } from './consts';
 
 export const collections = {
   [CONTENT_COLLECTION]: defineCollection({
@@ -22,7 +22,7 @@ export const collections = {
         }));
 
       return dateTextFiles.filter((dateTextFiles) =>
-        !dayjs(dateTextFiles.date, DATE_FORMAT).isAfter(dayjs(), 'day')
+        !dayjs(dateTextFiles.date, DATE_FORMAT).isAfter(TODAY, 'day')
       ).filter((dateTextFile) =>
         dateImageFiles.includes(dateTextFile.date)
       ).map((dateTextFile) => {

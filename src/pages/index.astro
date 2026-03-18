@@ -2,14 +2,19 @@
 import { getCollection } from "astro:content";
 import { Calendar } from "../components/Calendar";
 import "../styles/global.css";
-import { CALENDAR_START, CONTENT_COLLECTION, DATE_FORMAT } from "../consts";
+import {
+  CALENDAR_START,
+  CONTENT_COLLECTION,
+  DATE_FORMAT,
+  TODAY,
+} from "../consts";
 import dayjs from "dayjs";
 
 const hasContentFor = (await getCollection(CONTENT_COLLECTION)).map(
   (entry) => entry.id,
 );
 
-const deployedAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
+const deployedAt = TODAY.format("YYYY-MM-DD HH:mm:ss");
 const commitId = process.env.GITHUB_SHA ?? "???";
 ---
 
@@ -50,7 +55,7 @@ const commitId = process.env.GITHUB_SHA ?? "???";
     >
     <Calendar client:load hasContentFor={hasContentFor} />
     <p class="footer">
-      &copy; {dayjs().format("YYYY")} |
+      &copy; {TODAY.format("YYYY")} |
       <a
         href="https://github.com/visszaszamlalas2026/visszaszamlalas2026.github.io"
         >GitHub repo</a
