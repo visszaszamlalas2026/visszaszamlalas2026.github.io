@@ -52,7 +52,7 @@ table td {
 }
 
 table tbody td {
-  @apply h-[80px] lg:h-[110px] rounded-md relative overflow-visible transition-all;
+  @apply h-[80px] border-2 rounded-sm lg:h-[110px] relative overflow-visible transition-all shadow-md shadow-black;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -105,7 +105,7 @@ div.emoji {
 }
 
 td div.img {
-  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] blur-[1px] bg-center;
+  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] bg-center;
 }
 
 button.action,
@@ -114,46 +114,46 @@ a.action {
 }
 
 td.cell-intro {
-  @apply bg-yellow-400;
+  @apply bg-yellow-400 border-t-yellow-200 border-r-yellow-200 border-b-yellow-600 border-l-yellow-600;
 }
 
 td.cell-red,
 td.cell-red div.door-left,
 td.cell-red div.door-right {
-  @apply bg-red-700;
+  @apply bg-red-700 border-t-red-400 border-r-red-400 border-b-red-800 border-l-red-800;
 }
 
 td.cell-green,
 td.cell-green div.door-left,
 td.cell-green div.door-right {
-  @apply bg-lime-600;
+  @apply bg-lime-600 border-t-lime-300 border-r-lime-300 border-b-lime-700 border-l-lime-700;
 }
 
 td.cell-white,
 td.cell-white div.door-left,
 td.cell-white div.door-right {
-  @apply bg-neutral-200;
+  @apply bg-neutral-200 border-t-white border-r-white border-b-neutral-500 border-l-neutral-500;
 }
 
 div.door-left,
 div.door-right {
-  @apply absolute top-2 bottom-7 transition-all duration-[1s] rounded-md;
+  @apply absolute top-2 bottom-7 transition-all duration-[1s] border-2 shadow-xs shadow-black;
 }
 
 div.door-left {
-  @apply left-0 right-[50%] mr-[2px];
+  @apply left-1 right-[50%] mr-[2px] border-l-0 rounded-r-md;
 }
 
 td.opened div.door-left {
-  @apply left-0 right-[100%];
+  @apply left-1 right-[100%] border-none;
 }
 
 div.door-right {
-  @apply left-[50%] right-0 ml-[2px];
+  @apply left-[50%] right-1 ml-[2px] border-r-0 rounded-l-md;
 }
 
 td.opened div.door-right {
-  @apply left-[100%] right-0;
+  @apply left-[100%] right-1 border-none;
 }
 
 td.opened div.img {
