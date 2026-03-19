@@ -51,6 +51,8 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
 
   const colorClassname = thisType == DayButtonType.Introduction ? "cell-intro" : colors[props.index % colors.length];
 
+  const isToday = [DayButtonType.TodayMissing, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType);
+
   const renderDoors = () => {
     if ([DayButtonType.PastExistsClosed, DayButtonType.PastExistsOpened, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType)) {
       return <>
@@ -81,9 +83,8 @@ export const DayButton = (props: { day: Dayjs, index: number, hasContent: boolea
     }
   }
 
-  return <td className={colorClassname + ' ' + stateClassname}>
-    {[DayButtonType.TodayMissing, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType) && <div className="today"></div>}
-    <span>{props.day.format(DATE_SHORT_FORMAT)}</span>
+  return <td className={colorClassname + ' ' + stateClassname + (isToday ? ' today': '')}>
+    <span className={[DayButtonType.TodayMissing, DayButtonType.TodayExistsClosed, DayButtonType.TodayExistsOpened].includes(thisType) ? "!text-yellow-200" : ""}>{props.day.format(DATE_SHORT_FORMAT)}</span>
     {renderContent()}
     {renderDoors()}
     {renderAction()}
