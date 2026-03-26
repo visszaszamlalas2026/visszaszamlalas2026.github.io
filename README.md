@@ -15,6 +15,11 @@ minden napra egy fidesz botrany, [Toth Eniko](https://www.facebook.com/toth.enik
 
 MIT
 
+## see also
+
+- [Fidesz bűn archívum](https://nerlist.hu/)
+- [Magyar Államadósság Számláló](https://adossagora.hu/)
+
 ## contact
 
 my username @ `tutamail.com`
