@@ -8,7 +8,7 @@ import {
   DATE_FORMAT,
   TODAY,
 } from "../consts";
-import dayjs from "dayjs";
+import PostHog from "../components/PostHog.astro";
 
 const hasContentFor = (await getCollection(CONTENT_COLLECTION)).map(
   (entry) => entry.id,
@@ -41,6 +41,7 @@ const commitId = process.env.GITHUB_SHA ?? "???";
       name="twitter:image"
       content="https://visszaszamlalas2026.github.io/ogimage.jpg"
     />
+    <PostHog />
   </head>
   <body>
     <img src="/bg.jpg" id="background" />

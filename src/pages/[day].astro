@@ -11,6 +11,7 @@ import "../styles/global.css";
 import dayjs from "dayjs";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import PostHog from "../components/PostHog.astro";
 
 export async function getStaticPaths() {
   return (await getCollection(CONTENT_COLLECTION)).map((entry) => ({
@@ -66,6 +67,7 @@ const subtitle = dayjs(day).isSame(CALENDAR_START, "day")
       content={`https://visszaszamlalas2026.github.io/${day}/image.jpg`}
     />
     <meta property="og:description" content={subtitle} />
+    <PostHog />
   </head>
   <body>
     <img src="/bg.jpg" id="background" />
