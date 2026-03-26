@@ -36,7 +36,7 @@ const deployedAt = TODAY.format("YYYY-MM-DD HH:mm:ss");
 const commitId = process.env.GITHUB_SHA ?? "???";
 
 const subtitle = dayjs(day).isSame(CALENDAR_START, "day")
-  ? "2026-os választási kalendárium: minden nap egy újabb Fidesz-botrány!"
+  ? "2026-os választási kalendárium: minden nap egy újabb Fidesz botrány!"
   : `${daysLeft} nap a választásokig, ${caseCount}. ügy`;
 ---
 
