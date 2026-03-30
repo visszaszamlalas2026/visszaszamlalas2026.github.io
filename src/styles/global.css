@@ -48,7 +48,7 @@ table {
 }
 
 table td {
-  @apply w-1/7 md:w-[80px] lg:w-[110px] relative;
+  @apply w-1/7 md:w-[80px] lg:w-[110px] relative perspective-near perspective-origin-center;
 }
 
 table tbody td {
@@ -109,7 +109,11 @@ div.emoji {
 }
 
 td div.img {
-  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] bg-center inset-shadow-sm inset-shadow-black;
+  @apply absolute top-1 left-1 right-1 bottom-6 object-fill truncate rounded-md bg-cover opacity-50 transition-all duration-[1s] bg-center inset-shadow-sm inset-shadow-black brightness-50;
+}
+
+td.opened div.img {
+  @apply brightness-100;
 }
 
 button.action,
@@ -153,27 +157,26 @@ td.cell-white span {
 
 div.door-left,
 div.door-right {
-  @apply absolute top-2 bottom-7 transition-all duration-[1s] border-2 shadow-black;
+  @apply absolute top-2 bottom-7 transition-all duration-[1s] border-2 shadow-black w-[45%];
 }
 
 div.door-left {
-  @apply left-1 right-[50%] mr-[2px] border-l-0 rounded-r-md;
-  box-shadow: 2px 1px 1px 2px rgba(0, 0, 0, 0.4);
+  @apply left-1 mr-[2px] border-l-0 rounded-r-md;
 }
 
 td.opened div.door-left {
-  @apply left-1 right-[100%] border-none;
+  @apply -rotate-y-90 left-[-24%];
   box-shadow: none;
 }
 
 div.door-right {
-  @apply left-[50%] right-1 ml-[2px] border-r-0 rounded-l-md;
-  box-shadow: -2px 1px 1px 2px rgba(0, 0, 0, 0.4);
+  @apply right-1 ml-[2px] border-r-0 rounded-l-md;
 }
 
 td.opened div.door-right {
-  @apply left-[100%] right-1 border-none;
+  @apply rotate-y-90 right-[-24%];
   box-shadow: none;
+
 }
 
 td.opened div.img {
